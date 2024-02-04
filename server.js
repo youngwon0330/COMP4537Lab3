@@ -24,7 +24,7 @@ https.createServer(options, (request, response) => {
     response.writeHead(200, {'Content-Type': 'text/html'});
     response.end('<div>Please provide a name in the query string.</div>');
   }
-}).listen(443); // Standard HTTPS port
+}).listen(8000); // Standard HTTPS port
 
 console.log('Server is running...');
 // created by chatGPT
