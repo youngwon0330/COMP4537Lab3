@@ -1,30 +1,13 @@
-const https = require('https');
+const http = require('http');
 const url = require('url');
-const fs = require('fs');
-const utils = require('./modules/utils');
-const messages = require('./lang/en/en');
+const date = require('./modules/utils')
+const strings = require('./lang/messages/en/user')
 
-// Your SSL certificate and private key files for HTTPS
-const options = {
-  key: fs.readFileSync('path/to/your-private.key'),
-  cert: fs.readFileSync('path/to/your-certificate.pem')
-};
-
-https.createServer(options, (request, response) => {
-  const queryObject = url.parse(request.url, true).query;
-  
-  if (queryObject.name) {
-    const name = queryObject.name;
-    const time = utils.getDate();
-    const responseMessage = `<div style="color: blue;">${messages.greeting.replace('%s', name)} ${time}</div>`;
-
-    response.writeHead(200, {'Content-Type': 'text/html'});
-    response.end(responseMessage);
-  } else {
-    response.writeHead(200, {'Content-Type': 'text/html'});
-    response.end('<div>Please provide a name in the query string.</div>');
-  }
-}).listen(8000); // Standard HTTPS port
-
-console.log('Server is running...');
-// created by chatGPT
+http.createServer(function(req, res) {
+  let name = url.parse(req.url,true);
+  res.writeHead(200, { "Content-Type": "text/html" });
+  const response = strings.greeting.replace("%1", name.query["name"])
+  const currentDate = date.getDate()
+  res.end(`<div style="color:blue">${response} ${currentDate}</div>`);
+}).listen(8081);
+//created by gpt
