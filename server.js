@@ -1,7 +1,7 @@
 const http = require('http');
 const url = require('url');
 const date = require('./modules/utils')
-const strings = require('./lang/messages/en/user')
+const strings = require('./lang/en/en')
 
 http.createServer(function(req, res) {
   let name = url.parse(req.url,true);
